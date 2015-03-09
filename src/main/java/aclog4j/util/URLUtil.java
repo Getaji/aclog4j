@@ -1,5 +1,7 @@
 package aclog4j.util;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.Map;
 
 /**
@@ -22,5 +24,19 @@ public class URLUtil {
         builder.append("?");
         builder.append(parameters);
         return builder.toString();
+    }
+
+    public static String urlEncode(String str) {
+        final String encode = "UTF-8";
+        try {
+            String encodedStr = URLEncoder.encode(str, encode);
+            encodedStr = encodedStr.replace("*", "%2a");
+            encodedStr = encodedStr.replace("-", "%2a");
+            encodedStr = encodedStr.replace("+", "%20");
+
+            return encodedStr;
+        } catch (UnsupportedEncodingException e) {
+            throw new RuntimeException("Unsupported encoding: " + encode);
+        }
     }
 }

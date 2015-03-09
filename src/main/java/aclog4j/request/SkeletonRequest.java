@@ -29,6 +29,20 @@ public abstract class SkeletonRequest<E> implements Request<E> {
     }
 
     /**
+     * 内部にある{@link #params}を用いて、指定のパラメータのキーがまだ存在しない場合にパラメータを追加する。
+     * 追加時は{@link #addParam}が用いられる。
+     *
+     * コレクションなどの、参照を変更せずに値の追加ができるオブジェクトなどに適する。
+     *
+     * @param key キー
+     * @param value 値
+     */
+    protected void addParamIfNotSet(String key, Object value) {
+        if (!params.containsParam(key))
+            addParam(key, value);
+    }
+
+    /**
      * <p>内部にある{@link #params#containsParam(String)}を用いてパラメータがセットされているかチェックする。
      * セットされていない場合、以下のフォーマットで文字列を渡して{@link IllegalStateException}を送出する。
      *
@@ -83,9 +97,17 @@ public abstract class SkeletonRequest<E> implements Request<E> {
      */
     protected abstract Request<E> getInstance();
 
+    /**
+     * パラメータをURLに付加する文字列にしたものを返す。
+     *
+     * デフォルトでは{@link #params#toURLString}が呼ばれる。
+     * カスタマイズする場合はこのメソッドをオーバーライドすること。
+     *
+     * @return 文字列表現
+     */
     @Override
-    public URLParameters getParameters() {
-        return params;
+    public String getURLParameter() {
+        return params.toURLString();
     }
 
     /**

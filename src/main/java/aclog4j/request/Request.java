@@ -11,7 +11,11 @@ import com.google.gson.reflect.TypeToken;
 public interface Request<E> {
     public E request() throws AclogException;
 
-    URLParameters getParameters();
+    /**
+     * URLエンコードは自前でしてね
+     * @return
+     */
+    String getURLParameter();
     String getEndpoint();
     boolean isUseTypeToken();
     TypeToken<E> getTypeToken();

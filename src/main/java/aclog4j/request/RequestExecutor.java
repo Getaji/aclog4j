@@ -32,7 +32,9 @@ public class RequestExecutor {
 
     public static <T> T executeGET(Request<T> request)
             throws IOException, AclogException {
-        final String url = baseUrl + request.getEndpoint() + request.getParameters().toURLString();
+        final String paramsStr = request.getURLParameter();
+        final String url = baseUrl + request.getEndpoint() +
+                (paramsStr.isEmpty() ? "" : "?" + paramsStr);
         final HttpGet get = new HttpGet(url);
         get.setConfig(requestConfig);
         final CloseableHttpClient httpClient = HttpClients.createMinimal();

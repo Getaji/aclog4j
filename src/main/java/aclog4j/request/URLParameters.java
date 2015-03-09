@@ -1,5 +1,7 @@
 package aclog4j.request;
 
+import aclog4j.util.URLUtil;
+
 import java.util.*;
 
 /**
@@ -75,8 +77,9 @@ public class URLParameters {
     public String toURLString() {
         if (params.size() == 0) return "";
 
-        return "?" + params.entrySet().stream()
-                .map(e -> e.getKey() + "=" + e.getValue())
+        return params.entrySet().stream()
+                .map(e -> URLUtil.urlEncode(e.getKey()) + "=" +
+                        URLUtil.urlEncode(e.getValue().toString()))
                 .reduce((s1, s2) -> s1 + "&" + s2).get();
     }
 }
