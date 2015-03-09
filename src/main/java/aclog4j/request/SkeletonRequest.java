@@ -1,6 +1,7 @@
 package aclog4j.request;
 
 import aclog4j.AclogException;
+import aclog4j.RuntimeIOException;
 import lombok.Getter;
 
 import java.io.IOException;
@@ -93,16 +94,16 @@ public abstract class SkeletonRequest<E> implements Request<E> {
      *
      * @return 結果
      * @throws aclog4j.AclogException ステータスコードが200以外を返した場合
+     * @throws aclog4j.RuntimeIOException 内部エラー
      */
     @Override
-    public E request() throws AclogException {
+    public E request() throws AclogException, RuntimeIOException {
         //checkParams(getCheckParams());
         checkPreConditions();
         try {
             return RequestExecutor.executeGET(getInstance());
         } catch (IOException e) {
-            e.printStackTrace();
-            return null;
+            throw new RuntimeIOException(e);
         }
     }
 }
