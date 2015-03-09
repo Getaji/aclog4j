@@ -15,7 +15,7 @@ public interface Request<E> {
      * URLエンコードは自前でしてね
      * @return
      */
-    String getURLParameter();
+    String parametersToString();
     String getEndpoint();
     boolean isUseTypeToken();
     TypeToken<E> getTypeToken();
