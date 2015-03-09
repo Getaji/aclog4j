@@ -8,7 +8,7 @@ import lombok.NonNull;
  *
  * @author Getaji
  */
-public class Recent {
+public final class Recent {
 
     public static enum Unit {
         DAY("d"),
