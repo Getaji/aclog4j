@@ -1,5 +1,6 @@
 package aclog4j;
 
+import aclog4j.request.AclogLookupRequest;
 import aclog4j.request.AclogShowRequest;
 import aclog4j.request.RequestExecutor;
 import lombok.Getter;
@@ -23,5 +24,9 @@ public final class Aclog {
     // ------------------------------------------------------------------------
     public static AclogShowRequest show() {
         return new AclogShowRequest();
+    }
+
+    public static AclogLookupRequest lookup() {
+        return new AclogLookupRequest();
     }
 }

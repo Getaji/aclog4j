@@ -1,7 +1,6 @@
 package aclog4j.request;
 
 import aclog4j.Tweet;
-import aclog4j.util.InitializableLong;
 import com.google.gson.reflect.TypeToken;
 
 /**
@@ -10,8 +9,6 @@ import com.google.gson.reflect.TypeToken;
  * @author Getaji
  */
 public class AclogShowRequest extends SkeletonRequest<Tweet> {
-
-    private InitializableLong id = InitializableLong.ofEmpty();
 
     /**
      * The numerical ID of the desired Tweet.
@@ -26,11 +23,11 @@ public class AclogShowRequest extends SkeletonRequest<Tweet> {
 
     @Override
     protected void checkPreConditions() {
-        params.containsParam("id");
+        checkParam("id");
     }
 
     @Override
-    protected Request getInstance() {
+    protected Request<Tweet> getInstance() {
         return this;
     }
 
